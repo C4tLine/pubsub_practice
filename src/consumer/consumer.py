@@ -1,26 +1,26 @@
 import sys
-import time
+from time import sleep
 
-import pika
+from pika import PlainCredentials, BlockingConnection, ConnectionParameters
 
 from src.common.config import Config
 from src.common.database import Database
 
 
 class Consumer:
-    def __init__(self, table_name):
-        self.config = Config()
-        self.table = table_name
-        self.db = Database(table_name)
+    def __init__(self, table_name: str) -> None:
+        self.config: type = Config()
+        self.table: str = table_name
+        self.db: type = Database(table_name)
         self._connect_rabbitmq()
 
-    def _connect_rabbitmq(self):
-        credentials = pika.PlainCredentials(
+    def _connect_rabbitmq(self) -> None:
+        credentials = PlainCredentials(
             self.config.RABBIT_USER,
             self.config.RABBIT_PASSWORD
         )
-        self.connection = pika.BlockingConnection(
-            pika.ConnectionParameters(
+        self.connection = BlockingConnection(
+            ConnectionParameters(
                 host=self.config.RABBIT_HOST,
                 credentials=credentials
             )
@@ -40,16 +40,16 @@ class Consumer:
             queue=self.queue_name
         )
 
-    def _process_message(self, ch, method, properties, body):
+    def _process_message(self, ch, method, properties, body) -> None:
         try:
             message = body.decode()
             print(f"[CONS] Processing: {message}")
             self.db.save_message(message)
-            time.sleep(0.2)
+            sleep(0.2)
         finally:
             ch.basic_ack(delivery_tag=method.delivery_tag)
 
-    def start(self):
+    def start(self) -> None:
         self.channel.basic_consume(
             queue=self.queue_name,
             on_message_callback=self._process_message
