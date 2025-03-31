@@ -1,0 +1,13 @@
+test_message
+next will be names and surnames
+check in RabbitMQ Management
+Walter Kopp
+Victor Geiger
+August Waltz
+Adam Neumann
+Florian Schumacher
+Sabine Berger
+Michaela Ursler
+Helga Auttenberg
+Linda Otto
+Jutta Franke
