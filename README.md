@@ -10,7 +10,7 @@ Message broker - RabbitMQ
 git clone https://github.com/Rubsun/subpub_cassandra
 ```
 
-2. Enter directory with project:
+2. Enter in directory with project:
 ```bash
 cd pubsub_practice
 ```
@@ -28,6 +28,11 @@ CASSANDRA_KEYSPACE= *your_data*
 4. Run docker-compose:
 ```bash
 docker-compose up --build
+```
+
+if need to change something or add new feature in project:
+```
+docker-compose down --remove
 ```
 
 ## For development
@@ -54,5 +59,7 @@ pip install -r req.txt
 https://www.rabbitmq.com/tutorials/tutorial-three-python
 - Python library pika for rabbitmq: 
 https://pypi.org/project/pika/
+- Pythin library cassandra-driver for apache cassandra:    
+https://pypi.org/project/cassandra-driver/
 - Cassandra quickstart tutorial:    
 https://cassandra.apache.org/doc/latest/cassandra/getting-started/cassandra-quickstart.html
